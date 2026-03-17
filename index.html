@@ -1,1 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Log | Creative Fullstack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        /* 1. CSS 변수 설정: 일관된 테마 컬러 관리를 위해 사용합니다. */
+        :root {
+            --primary-color: #6366f1; /* 트렌디한 인디고 블루 */
+            --bg-color: #0f172a;      /* 다크 모드 기반 배경 */
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 배경에 은은한 그래디언트 포인트 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 80% 20%, #4f46e5 0%, transparent 25%);
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            gap: 40px;
+        }
+
+        /* 2. 왼쪽 프로필 섹션 (Sticky 적용으로 스크롤 시 고정) */
+        .sidebar {
+            flex: 1;
+            position: sticky;
+            top: 50px;
+            height: fit-content;
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px); /* 글래스모피즘 핵심 */
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), #ec4899);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .profile-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #818cf8, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .profile-card p {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* 3. 오른쪽 게시글 리스트 섹션 */
+        .main-content {
+            flex: 2.5;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        .post-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        /* 마우스 호버 시 독창적인 애니메이션 효과 */
+        .post-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .post-card .category {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .post-card h3 {
+            margin: 10px 0;
+            font-size: 1.3rem;
+        }
+
+        .post-card p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 두 줄 넘어가면 말줄임표 */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 반응형 디자인: 모바일에서는 세로로 배치 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="profile-img">👨‍💻</div>
+                <h2>Senior Dev</h2>
+                <p>15년 차 풀스택 개발자의 기록 공간입니다. <br> "어제보다 나은 코드를 작성하자"는 모토로 살아갑니다.</p>
+                <div style="font-size: 1.2rem;">
+                    <span title="Java">☕</span> <span title="Spring">🍃</span> <span title="SQL">💾</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <h1 class="section-title">Latest Posts</h1>
+
+            <article class="post-card">
+                <span class="category">Backend</span>
+                <h3>신입 개발자를 위한 JDBC 최적화 전략</h3>
+                <p>Spring 없이 순수 JDBC를 사용할 때 커넥션 풀링과 자원 해제를 어떻게 효율적으로 관리할 수 있는지 실무 노하우를 공유합니다.</p>
+            </article>
+
+            <article class="post-card">
+                <span class="category">Database</span>
+                <h3>SQLD 자격증, 한 번에 끝내는 공부법</h3>
+                <p>데이터베이스의 정규화와 관계 대수, 실무에서 자주 쓰이는 SQL 구문을 중심으로 핵심만 짚어드립니다.</p>
+            </article>
+
+            <article class="post-card">
+                <span class="category">Insight</span>
+                <h3>15년 차 시니어가 말하는 코드 리뷰의 자세</h3>
+                <p>기술적인 지식 전달보다 더 중요한 것은 동료와의 커뮤니케이션입니다. 함께 성장하는 리뷰 문화를 만드는 법을 알아봅니다.</p>
+            </article>
+        </main>
+    </div>
+
+</body>
+</html>
